@@ -27,6 +27,25 @@
       width: 100%;
     }
 
+    .page-header {
+      text-align: center;
+      margin-bottom: 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .page-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+    .page-header p {
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.6;
+    }
+
     .progress { display: flex; gap: 6px; margin-bottom: 32px; }
     .progress-step {
       flex: 1; height: 4px;
@@ -182,6 +201,11 @@
 <body>
 <div class="card">
 
+  <div class="page-header">
+    <h1>Đăng ký tham gia khảo sát tài xế Grab</h1>
+    <p>Anh/chị vui lòng chọn một khung giờ phù hợp để tham gia khảo sát và nhận 100.000 đồng tiền mặt tại chỗ.</p>
+  </div>
+
   <div class="progress">
     <div class="progress-step" id="p1"></div>
     <div class="progress-step" id="p2"></div>
@@ -192,8 +216,8 @@
   <!-- BƯỚC 1: Địa điểm -->
   <div class="step" id="step1">
     <div class="step-label">Bước 1 / 4</div>
-    <h2>Chọn địa điểm khảo sát</h2>
-    <p class="subtitle">Chọn địa điểm thuận tiện nhất với anh/chị</p>
+    <h2>Chọn địa điểm của bạn</h2>
+    <p class="subtitle">Chọn trung tâm khảo sát thuận tiện nhất với bạn.</p>
     <div class="location-cards" id="locationCards"></div>
   </div>
 
@@ -211,7 +235,7 @@
     <button class="btn-back" onclick="goTo(2)">&#8592; Quay lại</button>
     <div class="step-label">Bước 3 / 4</div>
     <h2>Chọn buổi</h2>
-    <p class="subtitle">Chọn khung giờ anh/chị muốn tham gia vào ngày <strong id="selectedDateLabel"></strong>.</p>
+    <p class="subtitle">Chọn ca bạn muốn tham gia vào ngày <strong id="selectedDateLabel"></strong>.</p>
     <div class="time-cards" id="timeCards"></div>
   </div>
 
@@ -219,8 +243,8 @@
   <div class="step" id="step4">
     <button class="btn-back" onclick="goTo(3)">&#8592; Quay lại</button>
     <div class="step-label">Bước 4 / 4</div>
-    <h2>Thông tin của anh/chị</h2>
-    <p class="subtitle">Gần xong rồi — vui lòng điền thông tin để xác nhận chỗ của anh/chị.</p>
+    <h2>Thông tin của bạn</h2>
+    <p class="subtitle">Gần xong rồi — vui lòng điền thông tin để xác nhận chỗ của bạn.</p>
     <div class="summary" id="bookingSummary"></div>
     <div id="errorMsg" class="error-msg" style="display:none"></div>
     <div class="form-group">
@@ -232,13 +256,17 @@
       <input type="text" id="lastName" placeholder="VD: Nguyễn" />
     </div>
     <div class="form-group">
+      <label for="driverId">ID hoạt động</label>
+      <input type="text" id="driverId" placeholder="VD: GRAB-12345678" />
+    </div>
+    <div class="form-group">
       <label for="phone">Số điện thoại</label>
       <input type="tel" id="phone" placeholder="VD: 0912345678" />
     </div>
     <div class="consent-box">
       <label>
         <input type="checkbox" id="consent" />
-        Tôi đồng ý để thông tin cá nhân của mình (họ tên, số điện thoại, khung giờ đăng ký) được thu thập và sử dụng duy nhất cho mục đích phối hợp tham gia nghiên cứu này, và để được liên hệ với các hướng dẫn tiếp theo.
+        Tôi đồng ý để thông tin cá nhân của mình (họ tên, số điện thoại, ca đăng ký) được thu thập và sử dụng duy nhất cho mục đích phối hợp tham gia nghiên cứu này, và để được liên hệ với các hướng dẫn tiếp theo.
       </label>
     </div>
     <button class="btn-primary" onclick="handleSubmit()">Xác nhận chỗ của tôi &#8594;</button>
@@ -246,19 +274,19 @@
 
   <!-- Đang tải -->
   <div class="step" id="stepLoading">
-    <div class="loading"><div class="spinner"></div>Đang tải thông tin các khung giờ đăng ký&hellip;</div>
+    <div class="loading"><div class="spinner"></div>Đang tải thông tin các ca đăng ký&hellip;</div>
   </div>
 
   <!-- Đang gửi -->
   <div class="step" id="stepSubmitting">
-    <div class="loading"><div class="spinner"></div>Đang xác nhận đăng ký của anh/chị&hellip;</div>
+    <div class="loading"><div class="spinner"></div>Đang xác nhận đăng ký của bạn&hellip;</div>
   </div>
 
   <!-- Thành công -->
   <div class="step" id="stepSuccess">
     <div class="success-icon">&#10003;</div>
     <div class="success-title">Đăng ký thành công!</div>
-    <p class="success-sub">Cảm ơn anh/chị đã đăng ký. Thông tin đăng ký của anh/chị đã được ghi lại.</p>
+    <p class="success-sub">Cảm ơn bạn đã đăng ký. Vui lòng đến sớm vài phút tại địa điểm đã chọn. Thông tin đăng ký của bạn đã được ghi lại.</p>
     <div class="summary" id="confirmationSummary"></div>
   </div>
 
@@ -466,6 +494,7 @@
   function handleSubmit() {
     var firstName = document.getElementById('firstName').value.trim();
     var lastName  = document.getElementById('lastName').value.trim();
+    var driverId  = document.getElementById('driverId').value.trim();
     var phone     = document.getElementById('phone').value.trim();
     var consent   = document.getElementById('consent').checked;
     var errorDiv  = document.getElementById('errorMsg');
@@ -473,6 +502,10 @@
 
     if (!firstName || !lastName) {
       errorDiv.textContent = 'Vui lòng nhập họ và tên của anh/chị.';
+      errorDiv.style.display = 'block'; return;
+    }
+    if (!driverId) {
+      errorDiv.textContent = 'Vui lòng nhập ID hoạt động của anh/chị.';
       errorDiv.style.display = 'block'; return;
     }
     if (!isValidVietnamesePhone(phone)) {
@@ -491,6 +524,7 @@
       body: JSON.stringify({
         firstName: firstName,
         lastName:  lastName,
+        driverId:  driverId,
         phone:     phone,
         location:  selected.location,
         date:      selected.date,
