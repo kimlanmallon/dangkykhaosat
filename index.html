@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Survey Sign-Up</title>
+  <title>Đăng Ký Khảo Sát</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +27,6 @@
       width: 100%;
     }
 
-    /* Progress bar */
     .progress { display: flex; gap: 6px; margin-bottom: 32px; }
     .progress-step {
       flex: 1; height: 4px;
@@ -35,9 +34,8 @@
       transition: background 0.3s;
     }
     .progress-step.active { background: #2563EB; }
-    .progress-step.done { background: #93C5FD; }
+    .progress-step.done   { background: #93C5FD; }
 
-    /* Headers */
     .step-label {
       font-size: 12px; font-weight: 600; color: #2563EB;
       text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;
@@ -62,7 +60,7 @@
     }
     .location-card.selected .location-icon { background: #DBEAFE; }
     .location-name { font-size: 15px; font-weight: 600; color: #1E293B; }
-    .location-sub { font-size: 12px; color: #94A3B8; margin-top: 3px; }
+    .location-sub  { font-size: 12px; color: #94A3B8; margin-top: 3px; }
 
     /* Date grid */
     .date-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -71,13 +69,15 @@
       padding: 14px 8px; cursor: pointer; text-align: center; transition: all 0.2s;
     }
     .date-card:hover:not(.unavailable) { border-color: #93C5FD; background: #F8FAFF; }
-    .date-card.selected { border-color: #2563EB; background: #EFF6FF; }
+    .date-card.selected   { border-color: #2563EB; background: #EFF6FF; }
     .date-card.unavailable { opacity: 0.38; cursor: not-allowed; background: #F8FAFC; }
-    .date-day { font-size: 11px; font-weight: 600; color: #64748B; text-transform: uppercase; letter-spacing: 0.05em; }
-    .date-num { font-size: 26px; font-weight: 700; color: #0F172A; line-height: 1.2; }
+    .date-day   { font-size: 11px; font-weight: 600; color: #64748B; text-transform: uppercase; letter-spacing: 0.04em; }
+    .date-num   { font-size: 26px; font-weight: 700; color: #0F172A; line-height: 1.2; }
     .date-month { font-size: 11px; color: #94A3B8; }
-    .date-card.selected .date-day, .date-card.selected .date-month { color: #2563EB; }
+    .date-card.selected .date-day,
+    .date-card.selected .date-month { color: #2563EB; }
     .date-card.selected .date-num { color: #1D4ED8; }
+    .date-past-label { font-size: 10px; color: #CBD5E1; margin-top: 2px; }
 
     /* Time cards */
     .time-cards { display: flex; flex-direction: column; gap: 12px; }
@@ -87,26 +87,26 @@
       transition: all 0.2s; display: flex; align-items: center; gap: 16px;
     }
     .time-card:hover:not(.unavailable) { border-color: #93C5FD; background: #F8FAFF; }
-    .time-card.selected { border-color: #2563EB; background: #EFF6FF; }
+    .time-card.selected   { border-color: #2563EB; background: #EFF6FF; }
     .time-card.unavailable { opacity: 0.38; cursor: not-allowed; background: #F8FAFC; }
-    .time-icon { font-size: 30px; }
+    .time-icon  { font-size: 30px; }
     .time-label { font-size: 16px; font-weight: 600; color: #1E293B; }
     .time-range { font-size: 13px; color: #64748B; margin-top: 2px; }
     .time-spots { font-size: 12px; font-weight: 500; margin-top: 5px; }
     .time-spots.available { color: #16A34A; }
-    .time-spots.low { color: #D97706; }
-    .time-spots.full { color: #DC2626; }
+    .time-spots.low       { color: #D97706; }
+    .time-spots.full      { color: #DC2626; }
 
-    /* Form inputs */
+    /* Form */
     .form-group { margin-bottom: 18px; }
     label { display: block; font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 6px; }
-    input[type="text"], input[type="email"] {
+    input[type="text"], input[type="tel"] {
       width: 100%; padding: 12px 14px;
       border: 2px solid #E2E8F0; border-radius: 10px;
       font-size: 15px; font-family: 'Inter', sans-serif;
       color: #0F172A; transition: border-color 0.2s; outline: none;
     }
-    input[type="text"]:focus, input[type="email"]:focus { border-color: #2563EB; }
+    input[type="text"]:focus, input[type="tel"]:focus { border-color: #2563EB; }
 
     .consent-box {
       background: #F8FAFC; border: 2px solid #E2E8F0;
@@ -122,7 +122,6 @@
       margin-top: 2px; accent-color: #2563EB; cursor: pointer;
     }
 
-    /* Buttons */
     .btn-primary {
       width: 100%; padding: 14px;
       background: #2563EB; color: white;
@@ -132,7 +131,6 @@
       cursor: pointer; transition: background 0.2s;
     }
     .btn-primary:hover { background: #1D4ED8; }
-    .btn-primary:disabled { background: #93C5FD; cursor: not-allowed; }
     .btn-back {
       background: none; border: none;
       font-size: 14px; color: #64748B;
@@ -142,7 +140,6 @@
     }
     .btn-back:hover { color: #2563EB; }
 
-    /* Booking summary */
     .summary {
       background: #F0F7FF; border: 1px solid #BFDBFE;
       border-radius: 12px; padding: 16px; margin-bottom: 24px;
@@ -152,10 +149,9 @@
       font-size: 14px; color: #1E293B; margin-bottom: 8px;
     }
     .summary-row:last-child { margin-bottom: 0; }
-    .summary-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .summary-icon  { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
     .summary-label { font-weight: 600; }
 
-    /* Loading */
     .loading { text-align: center; padding: 40px 0; color: #94A3B8; font-size: 14px; }
     .spinner {
       width: 32px; height: 32px;
@@ -165,16 +161,14 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Success */
     .success-icon {
       width: 72px; height: 72px; background: #DCFCE7;
       border-radius: 50%; display: flex; align-items: center;
       justify-content: center; font-size: 36px; margin: 0 auto 20px;
     }
     .success-title { text-align: center; font-size: 22px; font-weight: 700; color: #0F172A; margin-bottom: 8px; }
-    .success-sub { text-align: center; font-size: 14px; color: #64748B; line-height: 1.6; margin-bottom: 24px; }
+    .success-sub   { text-align: center; font-size: 14px; color: #64748B; line-height: 1.6; margin-bottom: 24px; }
 
-    /* Error */
     .error-msg {
       background: #FEF2F2; border: 1px solid #FECACA;
       border-radius: 10px; padding: 12px 14px;
@@ -195,92 +189,97 @@
     <div class="progress-step" id="p4"></div>
   </div>
 
-  <!-- STEP 1: Location -->
+  <!-- BƯỚC 1: Địa điểm -->
   <div class="step" id="step1">
-    <div class="step-label">Step 1 of 4</div>
-    <h2>Choose your location</h2>
-    <p class="subtitle">Select the survey centre most convenient for you.</p>
+    <div class="step-label">Bước 1 / 4</div>
+    <h2>Chọn địa điểm của anh/chị</h2>
+    <p class="subtitle">Chọn trung tâm khảo sát thuận tiện nhất với anh/chị</p>
     <div class="location-cards" id="locationCards"></div>
   </div>
 
-  <!-- STEP 2: Date -->
+  <!-- BƯỚC 2: Ngày -->
   <div class="step" id="step2">
-    <button class="btn-back" onclick="goTo(1)">&#8592; Back</button>
-    <div class="step-label">Step 2 of 4</div>
-    <h2>Choose a date</h2>
-    <p class="subtitle">Available dates at <strong id="selectedLocationLabel"></strong>.</p>
+    <button class="btn-back" onclick="goTo(1)">&#8592; Quay lại</button>
+    <div class="step-label">Bước 2 / 4</div>
+    <h2>Chọn ngày</h2>
+    <p class="subtitle">Các ngày có sẵn tại <strong id="selectedLocationLabel"></strong>.</p>
     <div class="date-grid" id="dateGrid"></div>
   </div>
 
-  <!-- STEP 3: Time -->
+  <!-- BƯỚC 3: Buổi -->
   <div class="step" id="step3">
-    <button class="btn-back" onclick="goTo(2)">&#8592; Back</button>
-    <div class="step-label">Step 3 of 4</div>
-    <h2>Choose a time</h2>
-    <p class="subtitle">Select your preferred session on <strong id="selectedDateLabel"></strong>.</p>
+    <button class="btn-back" onclick="goTo(2)">&#8592; Quay lại</button>
+    <div class="step-label">Bước 3 / 4</div>
+    <h2>Chọn buổi</h2>
+    <p class="subtitle">Chọn khung giờ anh/chị muốn tham gia vào ngày <strong id="selectedDateLabel"></strong>.</p>
     <div class="time-cards" id="timeCards"></div>
   </div>
 
-  <!-- STEP 4: Details -->
+  <!-- BƯỚC 4: Thông tin -->
   <div class="step" id="step4">
-    <button class="btn-back" onclick="goTo(3)">&#8592; Back</button>
-    <div class="step-label">Step 4 of 4</div>
-    <h2>Your details</h2>
-    <p class="subtitle">Almost done — confirm your spot by filling in your details.</p>
+    <button class="btn-back" onclick="goTo(3)">&#8592; Quay lại</button>
+    <div class="step-label">Bước 4 / 4</div>
+    <h2>Thông tin của anh/chị</h2>
+    <p class="subtitle">Gần xong rồi — vui lòng điền thông tin để xác nhận chỗ của anh/chị.</p>
     <div class="summary" id="bookingSummary"></div>
     <div id="errorMsg" class="error-msg" style="display:none"></div>
     <div class="form-group">
-      <label for="firstName">First name</label>
-      <input type="text" id="firstName" placeholder="e.g. Văn A" />
+      <label for="firstName">Tên</label>
+      <input type="text" id="firstName" placeholder="VD: Văn A" />
     </div>
     <div class="form-group">
-      <label for="lastName">Last name</label>
-      <input type="text" id="lastName" placeholder="e.g. Nguyễn" />
+      <label for="lastName">Họ</label>
+      <input type="text" id="lastName" placeholder="VD: Nguyễn" />
     </div>
     <div class="form-group">
-      <label for="email">Email address</label>
-      <input type="email" id="email" placeholder="example@email.com" />
+      <label for="phone">Số điện thoại</label>
+      <input type="tel" id="phone" placeholder="VD: 0912345678" />
     </div>
     <div class="consent-box">
       <label>
         <input type="checkbox" id="consent" />
-        I agree to my personal data (name, email, chosen slot) being collected and used solely for the purpose of coordinating my participation in this research study, and to be contacted with further instructions.
+        Tôi đồng ý để thông tin cá nhân của mình (họ tên, số điện thoại, khung giờ đăng ký) được thu thập và sử dụng duy nhất cho mục đích phối hợp tham gia nghiên cứu này, và để được liên hệ với các hướng dẫn tiếp theo.
       </label>
     </div>
-    <button class="btn-primary" onclick="handleSubmit()">Confirm my spot &#8594;</button>
+    <button class="btn-primary" onclick="handleSubmit()">Xác nhận chỗ của tôi &#8594;</button>
   </div>
 
-  <!-- Loading -->
+  <!-- Đang tải -->
   <div class="step" id="stepLoading">
-    <div class="loading"><div class="spinner"></div>Loading available slots&hellip;</div>
+    <div class="loading"><div class="spinner"></div>Đang tải thông tin các khung giờ đăng ký&hellip;</div>
   </div>
 
-  <!-- Submitting -->
+  <!-- Đang gửi -->
   <div class="step" id="stepSubmitting">
-    <div class="loading"><div class="spinner"></div>Confirming your registration&hellip;</div>
+    <div class="loading"><div class="spinner"></div>Đang xác nhận đăng ký của anh/chị&hellip;</div>
   </div>
 
-  <!-- Success -->
+  <!-- Thành công -->
   <div class="step" id="stepSuccess">
     <div class="success-icon">&#10003;</div>
-    <div class="success-title">You&rsquo;re registered!</div>
-    <p class="success-sub">Thank you for signing up. Please arrive a few minutes early at your chosen location. A confirmation has been noted at the email address you provided.</p>
+    <div class="success-title">Đăng ký thành công!</div>
+    <p class="success-sub">Cảm ơn anh/chị đã đăng ký. Thông tin đăng ký của anh/chị đã được ghi lại.</p>
     <div class="summary" id="confirmationSummary"></div>
   </div>
 
 </div>
 
 <script>
-  // ── IMPORTANT: paste your Apps Script deployment URL here ──
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6Lv8xc5dTdbLU7X8NEbuNHpYU4pLmIOrLG8BP9C2oJJjZLpXVYfiDwxv9jm1G8NnB/exec';
+  // ── Paste your Apps Script deployment URL here ─────────────
+  var SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_DEPLOYMENT_URL_HERE';
   // ──────────────────────────────────────────────────────────
 
   var slotData = null;
   var selected = { location: null, date: null, time: null };
-  var DAY_NAMES   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  var MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
-  // ── INIT ─────────────────────────────────────────────────
+  var DAY_NAMES   = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  var MONTH_NAMES = ['Th.1','Th.2','Th.3','Th.4','Th.5','Th.6','Th.7','Th.8','Th.9','Th.10','Th.11','Th.12'];
+  var TIME_LABELS = ['Buổi sáng', 'Buổi chiều'];
+  var TIME_ICONS  = ['&#127749;', '&#9728;&#65039;'];
+  // Morning ends at 12:00, afternoon ends at 17:00
+  var TIME_CUTOFF_HOURS = [12, 17];
+
+  // ── INIT ──────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', function() {
     showStep('stepLoading');
     fetch(SCRIPT_URL)
@@ -293,7 +292,7 @@
       })
       .catch(function() {
         document.getElementById('stepLoading').innerHTML =
-          '<p style="color:#DC2626;text-align:center;padding:40px 0">Failed to load slots. Please refresh the page.</p>';
+          '<p style="color:#DC2626;text-align:center;padding:40px 0">Không thể tải thông tin. Vui lòng tải lại trang.</p>';
       });
   });
 
@@ -319,14 +318,35 @@
     }
   }
 
+  // ── HELPERS ───────────────────────────────────────────────
+
+  // Returns true if a date string (dd/mm/yyyy) is in the past
+  function isDatePast(dateStr) {
+    // Dates are generated server-side starting from today,
+    // so the only "past" concern is time slots within today.
+    return false; // All displayed dates are >= today by server design
+  }
+
+  // Returns true if a time slot on today is already over
+  function isTimePastToday(dateStr, timeIndex) {
+    if (dateStr !== slotData.todayStr) return false;
+    return slotData.currentHourVN >= TIME_CUTOFF_HOURS[timeIndex];
+  }
+
+  function parseDateStr(dateStr) {
+    var parts = dateStr.split('/');
+    return new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+  }
+
   // ── STEP 1: LOCATIONS ─────────────────────────────────────
   function buildLocationCards() {
     var container = document.getElementById('locationCards');
     container.innerHTML = '';
     slotData.locations.forEach(function(loc) {
       var hasAny = slotData.dates.some(function(d) {
-        return slotData.times.some(function(t) {
-          return slotData.counts[loc][d][t] < slotData.maxCapacity;
+        return slotData.times.some(function(t, ti) {
+          return slotData.counts[loc][d][t] < slotData.maxCapacity &&
+                 !isTimePastToday(d, ti);
         });
       });
       var card = document.createElement('div');
@@ -334,7 +354,7 @@
       card.innerHTML =
         '<div class="location-icon">&#128205;</div>' +
         '<div><div class="location-name">' + loc + '</div>' +
-        '<div class="location-sub">' + (hasAny ? 'Slots available' : 'No slots remaining') + '</div></div>';
+        '<div class="location-sub">' + (hasAny ? 'Còn chỗ trống' : 'Đã hết chỗ') + '</div></div>';
       if (hasAny) {
         card.onclick = (function(l, c) { return function() { selectLocation(l, c); }; })(loc, card);
       }
@@ -355,17 +375,22 @@
     var container = document.getElementById('dateGrid');
     container.innerHTML = '';
     slotData.dates.forEach(function(dateStr) {
-      var hasAny = slotData.times.some(function(t) {
-        return slotData.counts[selected.location][dateStr][t] < slotData.maxCapacity;
+      // A date is unavailable if all its time slots are full or past
+      var hasAny = slotData.times.some(function(t, ti) {
+        return slotData.counts[selected.location][dateStr][t] < slotData.maxCapacity &&
+               !isTimePastToday(dateStr, ti);
       });
+      var d = parseDateStr(dateStr);
       var parts = dateStr.split('/');
-      var d = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
+      var isToday = (dateStr === slotData.todayStr);
+
       var card = document.createElement('div');
       card.className = 'date-card' + (!hasAny ? ' unavailable' : '');
       card.innerHTML =
         '<div class="date-day">' + DAY_NAMES[d.getDay()] + '</div>' +
         '<div class="date-num">' + parts[0] + '</div>' +
-        '<div class="date-month">' + MONTH_NAMES[d.getMonth()] + '</div>';
+        '<div class="date-month">' + MONTH_NAMES[d.getMonth()] + '</div>' +
+        (isToday ? '<div class="date-past-label">Hôm nay</div>' : '');
       if (hasAny) {
         card.onclick = (function(ds, c) { return function() { selectDate(ds, c); }; })(dateStr, card);
       }
@@ -377,10 +402,10 @@
     selected.date = dateStr; selected.time = null;
     document.querySelectorAll('.date-card').forEach(function(c) { c.classList.remove('selected'); });
     card.classList.add('selected');
+    var d = parseDateStr(dateStr);
     var parts = dateStr.split('/');
-    var d = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
     document.getElementById('selectedDateLabel').textContent =
-      DAY_NAMES[d.getDay()] + ' ' + parts[0] + ' ' + MONTH_NAMES[d.getMonth()];
+      DAY_NAMES[d.getDay()] + ' ' + parts[0] + '/' + parts[1];
     setTimeout(function() { goTo(3); }, 180);
   }
 
@@ -388,19 +413,22 @@
   function buildTimeCards() {
     var container = document.getElementById('timeCards');
     container.innerHTML = '';
-    var icons  = ['&#127749;', '&#9728;&#65039;'];
-    var labels = ['Morning', 'Afternoon'];
     slotData.times.forEach(function(time, i) {
       var count     = slotData.counts[selected.location][selected.date][time];
       var remaining = slotData.maxCapacity - count;
-      var isFull    = remaining <= 0;
-      var spotsClass = remaining > 5 ? 'available' : remaining > 0 ? 'low' : 'full';
-      var spotsText  = isFull ? 'Full' : remaining + ' spot' + (remaining === 1 ? '' : 's') + ' left';
+      var isPast    = isTimePastToday(selected.date, i);
+      var isFull    = remaining <= 0 || isPast;
+
+      var spotsClass = isPast ? 'full' : remaining > 5 ? 'available' : remaining > 0 ? 'low' : 'full';
+      var spotsText  = isPast    ? 'Ca này đã qua' :
+                       isFull    ? 'Đã hết chỗ' :
+                       remaining + ' chỗ còn lại';
+
       var card = document.createElement('div');
       card.className = 'time-card' + (isFull ? ' unavailable' : '');
       card.innerHTML =
-        '<div class="time-icon">' + icons[i] + '</div>' +
-        '<div><div class="time-label">' + labels[i] + '</div>' +
+        '<div class="time-icon">' + TIME_ICONS[i] + '</div>' +
+        '<div><div class="time-label">' + TIME_LABELS[i] + '</div>' +
         '<div class="time-range">' + time + '</div>' +
         '<div class="time-spots ' + spotsClass + '">' + spotsText + '</div></div>';
       if (!isFull) {
@@ -419,34 +447,40 @@
 
   // ── STEP 4: DETAILS ───────────────────────────────────────
   function buildSummary(targetId) {
-    var parts = selected.date.split('/');
-    var d = new Date(parseInt(parts[2]), parseInt(parts[1]) - 1, parseInt(parts[0]));
-    var dateStr   = DAY_NAMES[d.getDay()] + ' ' + parts[0] + ' ' + MONTH_NAMES[d.getMonth()] + ' ' + parts[2];
-    var timeLabel = selected.time === slotData.times[0] ? 'Morning' : 'Afternoon';
+    var parts     = selected.date.split('/');
+    var d         = parseDateStr(selected.date);
+    var dateStr   = DAY_NAMES[d.getDay()] + ' ' + parts[0] + '/' + parts[1] + '/' + parts[2];
+    var timeIndex = slotData.times.indexOf(selected.time);
+    var timeLabel = TIME_LABELS[timeIndex] + ' (' + selected.time + ')';
     document.getElementById(targetId).innerHTML =
-      '<div class="summary-row"><span class="summary-icon">&#128205;</span><span><span class="summary-label">Location: </span>' + selected.location + '</span></div>' +
-      '<div class="summary-row"><span class="summary-icon">&#128197;</span><span><span class="summary-label">Date: </span>' + dateStr + '</span></div>' +
-      '<div class="summary-row"><span class="summary-icon">&#128336;</span><span><span class="summary-label">Time: </span>' + timeLabel + ' (' + selected.time + ')</span></div>';
+      '<div class="summary-row"><span class="summary-icon">&#128205;</span><span><span class="summary-label">Địa điểm: </span>' + selected.location + '</span></div>' +
+      '<div class="summary-row"><span class="summary-icon">&#128197;</span><span><span class="summary-label">Ngày: </span>' + dateStr + '</span></div>' +
+      '<div class="summary-row"><span class="summary-icon">&#128336;</span><span><span class="summary-label">Thời gian: </span>' + timeLabel + '</span></div>';
+  }
+
+  // Vietnamese phone number validation
+  function isValidVietnamesePhone(phone) {
+    return /^(\+84|0)(3[2-9]|5[25689]|7[06-9]|8[1-9]|9[0-9])\d{7}$/.test(phone.replace(/\s/g, ''));
   }
 
   function handleSubmit() {
     var firstName = document.getElementById('firstName').value.trim();
     var lastName  = document.getElementById('lastName').value.trim();
-    var email     = document.getElementById('email').value.trim();
+    var phone     = document.getElementById('phone').value.trim();
     var consent   = document.getElementById('consent').checked;
     var errorDiv  = document.getElementById('errorMsg');
     errorDiv.style.display = 'none';
 
     if (!firstName || !lastName) {
-      errorDiv.textContent = 'Please enter your first and last name.';
+      errorDiv.textContent = 'Vui lòng nhập họ và tên của anh/chị.';
       errorDiv.style.display = 'block'; return;
     }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errorDiv.textContent = 'Please enter a valid email address.';
+    if (!isValidVietnamesePhone(phone)) {
+      errorDiv.textContent = 'Vui lòng nhập số điện thoại hợp lệ (VD: 0912345678 hoặc +84912345678).';
       errorDiv.style.display = 'block'; return;
     }
     if (!consent) {
-      errorDiv.textContent = 'Please tick the consent box to continue.';
+      errorDiv.textContent = 'Vui lòng tích vào ô đồng ý để tiếp tục.';
       errorDiv.style.display = 'block'; return;
     }
 
@@ -457,7 +491,7 @@
       body: JSON.stringify({
         firstName: firstName,
         lastName:  lastName,
-        email:     email,
+        phone:     phone,
         location:  selected.location,
         date:      selected.date,
         time:      selected.time,
@@ -479,7 +513,7 @@
     .catch(function() {
       showStep('step4');
       updateProgress(4);
-      document.getElementById('errorMsg').textContent = 'Something went wrong. Please try again.';
+      document.getElementById('errorMsg').textContent = 'Đã có lỗi xảy ra. Vui lòng thử lại.';
       document.getElementById('errorMsg').style.display = 'block';
     });
   }
