@@ -248,16 +248,12 @@
     <div class="summary" id="bookingSummary"></div>
     <div id="errorMsg" class="error-msg" style="display:none"></div>
     <div class="form-group">
-      <label for="firstName">Tên</label>
-      <input type="text" id="firstName" placeholder="VD: Văn A" />
-    </div>
-    <div class="form-group">
-      <label for="lastName">Họ</label>
-      <input type="text" id="lastName" placeholder="VD: Nguyễn" />
+      <label for="fullName">Họ tên</label>
+      <input type="text" id="fullName" placeholder="VD: Nguyễn Văn A" />
     </div>
     <div class="form-group">
       <label for="driverId">ID hoạt động</label>
-      <input type="text" id="driverId" placeholder="VD: 12345678" />
+      <input type="text" id="driverId" placeholder="VD: GRAB-12345678" />
     </div>
     <div class="form-group">
       <label for="phone">Số điện thoại</label>
@@ -286,7 +282,7 @@
   <div class="step" id="stepSuccess">
     <div class="success-icon">&#10003;</div>
     <div class="success-title">Đăng ký thành công!</div>
-    <p class="success-sub">Cảm ơn bạn đã đăng ký. Vui lòng đến sớm vài phút tại địa điểm đã chọn. Thông tin đăng ký của bạn đã được ghi lại.</p>
+    <p class="success-sub">Cảm ơn bạn đã đăng ký. Vui lòng đến sớm vài phút tại địa điểm đã chọn. Thông tin đăng ký của bạn đã được ghi lại.<br><br>Nếu anh/chị có thắc mắc, vui lòng liên hệ Ninh qua số <strong>0966 098 666</strong>.</p>
     <div class="summary" id="confirmationSummary"></div>
   </div>
 
@@ -294,7 +290,7 @@
 
 <script>
   // ── Paste your Apps Script deployment URL here ─────────────
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6Lv8xc5dTdbLU7X8NEbuNHpYU4pLmIOrLG8BP9C2oJJjZLpXVYfiDwxv9jm1G8NnB/exec';
+  var SCRIPT_URL = 'PASTE_YOUR_APPS_SCRIPT_DEPLOYMENT_URL_HERE';
   // ──────────────────────────────────────────────────────────
 
   var slotData = null;
@@ -492,16 +488,15 @@
   }
 
   function handleSubmit() {
-    var firstName = document.getElementById('firstName').value.trim();
-    var lastName  = document.getElementById('lastName').value.trim();
+    var fullName  = document.getElementById('fullName').value.trim();
     var driverId  = document.getElementById('driverId').value.trim();
     var phone     = document.getElementById('phone').value.trim();
     var consent   = document.getElementById('consent').checked;
     var errorDiv  = document.getElementById('errorMsg');
     errorDiv.style.display = 'none';
 
-    if (!firstName || !lastName) {
-      errorDiv.textContent = 'Vui lòng nhập họ và tên của anh/chị.';
+    if (!fullName) {
+      errorDiv.textContent = 'Vui lòng nhập họ tên của anh/chị.';
       errorDiv.style.display = 'block'; return;
     }
     if (!driverId) {
@@ -522,8 +517,8 @@
     fetch(SCRIPT_URL, {
       method: 'POST',
       body: JSON.stringify({
-        firstName: firstName,
-        lastName:  lastName,
+        firstName: fullName,
+        lastName:  '',
         driverId:  driverId,
         phone:     phone,
         location:  selected.location,
